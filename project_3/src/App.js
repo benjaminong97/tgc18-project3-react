@@ -11,7 +11,8 @@ import React, { useState } from 'react'
 //import in pages
 import Login from './pages/Login'
 import Home from './pages/Home'
-import Mouses from './pages/Mouses';
+import Mouses from './pages/Mouses'
+import MouseDetails from './pages/MouseDetails';
 
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
         <Route path='/login' element={<Login/>} />
         <Route path='/' element = {<Home/>}/>
         <Route path='/mouses' element = {<Mouses/>}/>
+        <Route path='/mouses/:mouse_id' element = {<MouseDetails/>}/>
 
       </Routes>
 

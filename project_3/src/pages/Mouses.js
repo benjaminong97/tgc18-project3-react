@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Accordion, Breadcrumb, Container, Card } from 'react-bootstrap';
+import { Form, Accordion, Breadcrumb, Container, Card, Badge } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import axios from 'axios'
 
@@ -68,26 +68,38 @@ export default function Mouses() {
                 <div className="products mb-5 col-12 col-md-9">
                     <div className="pb-3 row row-cols-2 row-cols-md-2 row-cols-lg-3 g-3 g-md-4">
                         {mouses.map((m) => (
-                            <div className='col' key ={m.id}>
-                                <Card>
+                            <div className='col' key={m.id}>
+                                <Card bg='light' style={{'height': "470px"}}>
                                     <div class="wrapper">
                                         <Link to={'/mouses/' + m.id} className="text-decoration-none text-reset">
                                             <div className='img'>
-                                                <img src={m.variants[0].image_url} className = 'card-img-top rounded-0' alt='mouse image'/>
+                                                <img src={m.variants[0].image_url} className='card-img-top rounded-0' alt='mouse image' style={{'height': '270px'}} />
                                             </div>
                                             <div className='d-flex row justify-content-between my-3 mx-1'>
                                                 <div className='col-12 col-md-7'>
                                                     <p className='product-title mb-2'>{m.name}</p>
                                                 </div>
                                                 <div className='col-12 col-md-5'>
-                                                    <p className="product-title text-md-end text-start"><span>SGD {m.cost}</span></p>
+                                                    <p className="product-title text-md-end text-start"><span>SG$ {(m.cost/100).toFixed(2)}</span></p>
+                                                </div>
+                                                <div>
+                                                    {
+                                                        m.features.map(f => (<Badge pill bg='success'>{f.name}</Badge>))
+                                                    }
+                                                    
                                                 </div>
                                                 {/* add in some features here */}
                                             </div>
+                                            <div class="product-price-btn m-3">
+                                            
+                                            <button type="button">buy now</button>
+                                        </div>
 
                                         </Link>
                                     </div>
+
                                 </Card>
+
                             </div>
                         ))}
                     </div>
