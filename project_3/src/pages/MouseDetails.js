@@ -3,7 +3,7 @@ import { Accordion, Toast, Carousel, Badge, CarouselItem } from 'react-bootstrap
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios'
 
-const BASE_URL = "https://3000-benjaminong-tgc18projec-m60k3wuifkz.ws-us63.gitpod.io/"
+const BASE_URL = "https://superior-sensors.herokuapp.com/"
 
 export default function MouseDetails() {
     const [currentMouse, setCurrentMouse] = useState('')

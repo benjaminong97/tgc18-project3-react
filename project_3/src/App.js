@@ -14,6 +14,7 @@ import Login from './pages/Login'
 import Home from './pages/Home'
 import Mouses from './pages/Mouses'
 import MouseDetails from './pages/MouseDetails';
+import Register from './pages/Register'
 
 
 function App() {
@@ -45,6 +46,11 @@ function App() {
                             </li>
                         </ul>
                         {/* Left links */}
+
+                        <div className='d-flex'>
+                            <a href="/login" role='button'><img src={require('./images/user.png')} style={{height: '35px'}} className="mx-3" /></a>
+                            <a href='/cart' role='button'><img src={require('./images/shopping-cart.png')} style={{height: '35px'}}/></a>
+                        </div>
                     </div>
                     {/* Collapsible wrapper */}
 
@@ -61,6 +67,7 @@ function App() {
         <Route path='/' element = {<Home/>}/>
         <Route path='/mouses' element = {<Mouses/>}/>
         <Route path='/mouses/:mouse_id' element = {<MouseDetails/>}/>
+        <Route path='/register' element = {<Register/>}/>
 
       </Routes>
 
