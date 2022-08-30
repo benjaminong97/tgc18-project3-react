@@ -21,7 +21,7 @@ export default function Login() {
         if (!email || !password) {
             setLoginFailed(true)
         } else {
-            const response = await axios.post((BASE_URL + 'api/users/login'), {
+            const response = await axios.post((BASE_URL + 'api/users/login/'), {
                 "email" : email,
                 "password": password,
             })

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Accordion, Toast, Carousel, Badge } from 'react-bootstrap';
+import { Accordion, Toast, Carousel, Badge, CarouselItem } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios'
 
@@ -43,15 +43,20 @@ export default function MouseDetails() {
                                     <p className="legend">No image available for this product</p>
                                 </div> :
                                 currentMouse.variants?.map((v, i) =>
-                                    <div key={i}><img src={v.image_url} alt="Not available" /></div>)
+                                    <CarouselItem>
+                                        <div key={i}><img src={v.image_url} alt="Not available" height="400" /></div>
+                                    </CarouselItem>)
                             }
                         </Carousel>
                     </div>
                     <div className="col-12 col-md-6 px-3 px-md-4 product">
                         <div className="pt-3 pb-5">
-                            <h1 className="header-text">{currentMouse.name}</h1>
-                            <p className="header-small">Great for: {currentMouse.gameType['name']} gaming</p>
-                            <h3 className="subheader-text">${currentMouse.cost/100}</h3>
+                            <div className='d-flex'>
+                                <img src={currentMouse.brand?.image_url} height='40'/>
+                            <h1 className="header-text mx-3">{currentMouse.name}</h1>
+                            </div>
+                            <p className="header-small">Great for: {currentMouse['gameType']?.name} gaming</p>
+                            <h3 className="subheader-text">${currentMouse.cost / 100}</h3>
                             <p className="mt-4 mb-0 body-text"><strong>Shape:</strong>{currentMouse.shape}</p>
                             <p className="m-0 body-text"><strong>Connectivity:</strong> {currentMouse.connectivity}</p>
                             {/* <div className="mt-4">
@@ -87,13 +92,13 @@ export default function MouseDetails() {
                         <Accordion.Item eventKey="1">
                             <Accordion.Header>Features</Accordion.Header>
                             <Accordion.Body>
-                                {/* <p className="mt-2 body-text">{currentMouse.features.map(t => (<Badge bg="secondary" className="m-1">{t}</Badge>))}</p> */}
+                                <ul className="mt-2 body-text">{currentMouse.features?.map(t => (<li className="m-1">{t.name}</li>))}</ul>
                             </Accordion.Body>
                         </Accordion.Item>
                         <Accordion.Item eventKey="2">
                             <Accordion.Header className="mb-3">Other Technical Specs</Accordion.Header>
                             <Accordion.Body>
-                                {/* <p className="mt-2 body-text"><strong>Backlighting:</strong><br />{currentMouse.backlighting.name}</p> */}
+                                <p className="mt-2 body-text"><strong>Backlighting:</strong><br />{currentMouse.backlighting?.name}</p>
                                 <p className="body-text"><strong>Number of Buttons:</strong><br />{currentMouse.numberOfButtons}</p>
                                 <p className="body-text"><strong>Max DPI:</strong><br />{currentMouse.dpi}</p>
                             </Accordion.Body>

@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.search-btn-pri {
+  border: 1px solid #412b19;
+    background-color: #412b19;
+    color: #F1F1EE;
+}
