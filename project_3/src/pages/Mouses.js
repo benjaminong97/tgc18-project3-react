@@ -4,7 +4,7 @@ import RangeSlider from 'react-bootstrap-range-slider';
 import { Link } from "react-router-dom";
 import axios from 'axios'
 
-const BASE_URL = 'https://superior-sensors.herokuapp.com/'
+const BASE_URL = 'https://3000-benjaminong-tgc18projec-m60k3wuifkz.ws-us63.gitpod.io/'
 
 export default function Mouses() {
     const [mouses, setMouses] = useState([])
@@ -114,6 +114,7 @@ export default function Mouses() {
         }
 
         if (brandSearch) {
+            console.log(brandSearch)
             query.brand = brandSearch
         }
 
@@ -121,9 +122,23 @@ export default function Mouses() {
             query.backlighting = backlightingSearch
         }
 
+        if (dpiSearch) {
+            query.dpi = dpiSearch
+        }
 
+        if (featureSearch) {
+            query.features = featureSearch
+        }
 
-        const response = await axios.post(BASE_URL + "/api/mouses/search", query)
+        if (gameTypeSearch) {
+            query.gameType = gameTypeSearch
+        }
+
+        if (connectivitySearch) {
+            query.connectivity = connectivitySearch
+        }
+
+        const response = await axios.post(BASE_URL + "api/mouses/search", query)
         console.log('results:', response.data)
 
         setMouses(response.data)
@@ -159,13 +174,15 @@ export default function Mouses() {
                             <Form.Select className='my-3' name="connectivitySearch" value={connectivitySearch}
                                 onChange={(e) => setConnectivitySearch(e.target.value)}
                             >
-                                <option>-- Connectivity --</option>
+                                <option value=''>-- Connectivity --</option>
                                 <option value="wired">Wired</option>
                                 <option value="wireless">Wireless</option>
 
                             </Form.Select>
-                            <Form.Select className='my-3'>
-                                <option>-- Game Type --</option>
+                            <Form.Select className='my-3' name='gameTypeSearch' value ={gameTypeSearch}
+                                onChange={(e) => setGameTypeSearch(e.target.value)}
+                            >
+                                <option value = ''>-- Game Type --</option>
                                 {mouseGameTypes.map(g => (
                                     <option key={g[0]} value={g[0]}>{g[1]}</option>
                                 ))}

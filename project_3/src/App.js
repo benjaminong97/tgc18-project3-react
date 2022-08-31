@@ -15,9 +15,36 @@ import Home from './pages/Home'
 import Mouses from './pages/Mouses'
 import MouseDetails from './pages/MouseDetails';
 import Register from './pages/Register'
+import { Button } from 'react-bootstrap';
+
+const BASE_URL = "https://3000-benjaminong-tgc18projec-m60k3wuifkz.ws-us63.gitpod.io/"
 
 
 function App() {
+
+    const [loggedIn, setLoggedIn] = useState(false)
+
+    const accessToken = localStorage.getItem('accessToken')
+    if (accessToken) {
+
+        const accessTokenExists = async () => {
+            const response = await axios.get(BASE_URL + 'api/users/profile', {
+                headers: {
+                    authorization: 'Bearer' + accessToken,
+                    'id' : localStorage.getItem('user_id')
+                }
+            })
+
+            console.log(response.data.id)
+            console.log(localStorage.getItem('user_id'))
+            if (response.data.id == localStorage.getItem('user_id')) {
+                setLoggedIn(true)
+            }
+        }
+
+        accessTokenExists()
+    }
+
   return (
     <Router>
       <nav className="navbar navbar-expand-md navbar-dark bg-dark flex-shrink-0">
@@ -48,6 +75,10 @@ function App() {
                         {/* Left links */}
 
                         <div className='d-flex'>
+                            {loggedIn == true ?
+                            <Button className="text-dark btn-light">Welcome, {localStorage.getItem('user_first_name')}</Button> :
+                            <p></p>    
+                        }
                             <a href="/login" role='button'><img src={require('./images/user.png')} style={{height: '35px'}} className="mx-3" /></a>
                             <a href='/cart' role='button'><img src={require('./images/shopping-cart.png')} style={{height: '35px'}}/></a>
                         </div>

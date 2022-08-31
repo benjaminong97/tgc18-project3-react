@@ -4,7 +4,7 @@ import {Form, Container} from 'react-bootstrap'
 import axios from 'axios'
 
 
-const BASE_URL = "https://superior-sensors.herokuapp.com/"
+const BASE_URL = "https://3000-benjaminong-tgc18projec-m60k3wuifkz.ws-us63.gitpod.io/"
 
 
 export default function Login() {
@@ -13,6 +13,7 @@ export default function Login() {
     const [password, setPassword] = useState('')
     const [loginFailed, setLoginFailed] = useState(false) 
 
+    const navigate = useNavigate()
 
     async function login() {
         console.log(email)
@@ -21,24 +22,25 @@ export default function Login() {
         if (!email || !password) {
             setLoginFailed(true)
         } else {
-            const response = await axios.post((BASE_URL + 'api/users/login/'), {
+            const response = await axios.post((BASE_URL + 'api/users/login'), {
                 "email" : email,
                 "password": password,
             })
 
             console.log(response.data)
 
-            if (response.status === 200) {
+            if (response.status === 200 && response.data.accessToken) {
+                console.log(response.data)
                 localStorage.setItem('accessToken', response.data.accessToken)
                 localStorage.setItem('refreshToken', response.data.refreshToken)
-                localStorage.setItem('id', response.data.user_id)
-    
+                localStorage.setItem('user_id', response.data.user_id)
+                localStorage.setItem('user_first_name', response.data.user_first_name)
+                navigate('/mouses')
                 
+            } else {
+                setLoginFailed(true)
             }
         }
-
-        
-
     }
 
     return(

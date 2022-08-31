@@ -4,7 +4,7 @@ import { Button, Form } from 'react-bootstrap';
 import { useState } from "react"
 import axios from 'axios'
 
-const BASE_URL = 'https://superior-sensors.herokuapp.com'
+const BASE_URL = 'https://3000-benjaminong-tgc18projec-m60k3wuifkz.ws-us63.gitpod.io'
 
 export default function Register() {
     const navigate = useNavigate()
@@ -61,7 +61,9 @@ export default function Register() {
         }
 
         if (invalidCPassword === false && invalidEmail === false && invalidFName === false && invalidLName === false && invalidPassword === false) {
-            const response = await axios.post(BASE_URL + "/api/users/register, registerForm")
+            console.log(registerForm)
+            const response = await axios.post(BASE_URL + "/api/users/register", registerForm)
+            console.log('registration complete')
 
             alert('Account Created!')
             navigate('/login')
