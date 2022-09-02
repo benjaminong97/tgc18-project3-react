@@ -16,6 +16,7 @@ import Mouses from './pages/Mouses'
 import MouseDetails from './pages/MouseDetails';
 import Register from './pages/Register'
 import { Button } from 'react-bootstrap';
+import Cart from './pages/Cart';
 
 const BASE_URL = "https://3000-benjaminong-tgc18projec-m60k3wuifkz.ws-us63.gitpod.io/"
 
@@ -99,6 +100,7 @@ function App() {
         <Route path='/mouses' element = {<Mouses/>}/>
         <Route path='/mouses/:mouse_id' element = {<MouseDetails/>}/>
         <Route path='/register' element = {<Register/>}/>
+        <Route path='/cart' element = {<Cart/>}/>
 
       </Routes>
 
