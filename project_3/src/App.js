@@ -15,7 +15,7 @@ import Home from './pages/Home'
 import Mouses from './pages/Mouses'
 import MouseDetails from './pages/MouseDetails';
 import Register from './pages/Register'
-import { Button } from 'react-bootstrap';
+import { Button, Nav } from 'react-bootstrap';
 import Cart from './pages/Cart';
 
 const BASE_URL = "https://3000-benjaminong-tgc18projec-m60k3wuifkz.ws-us63.gitpod.io/"
@@ -48,7 +48,7 @@ function App() {
 
   return (
     <Router>
-      <nav className="navbar navbar-expand-md navbar-dark bg-dark flex-shrink-0">
+      <div className="navbar navbar-expand-md navbar-dark bg-dark flex-shrink-0">
                 {/* Container wrapper */}
                 <div className="container-fluid">
                     {/* Toggle button */}
@@ -91,7 +91,7 @@ function App() {
                     {/* Right elements */}
                 </div>
                 {/* Container wrapper */}
-            </nav>
+            </div>
       
 
       <Routes>

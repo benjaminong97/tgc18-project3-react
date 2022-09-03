@@ -1,22 +1,40 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom'
 export default function Home() {
-    
-   
-    return (
+
+    const [loadingDone, setLoadingDone] = useState(false)
+
+    useEffect(() => {
+        setLoadingDone(true)
+    })
+
+    return (!loadingDone ? (
         <React.Fragment>
-            <div className="bg position-relative">
-                    <div className="header-content position-absolute">
-                        <div className="cta d-flex flex-column position-absolute w-75 top-50 start-50 translate-middle">
-                            
-                            <p className="cta py-3 short-text text-center col-md-6 mx-auto">The secret to healthy living</p>
-                            <h1 className="cta title text-center py-3 col-md-6 mx-auto">Essential Oils for Your Mind & Body</h1>
-                            <a className="mt-4 shop-btn btn mx-auto py-2 px-5 rounded-0" href="/products" role="button">SHOP NOW</a>
-                        </div>
-                    </div>
+            <div className='m-auto d-flex align-items-center h-100'>
+                <img src={require('../images/superior.gif')} style={{ 'position': 'absolute', 'margin': 'auto', 'top': '0', 'bottom': '0', 'right': '0', 'left': '0' }} />
             </div>
-
         </React.Fragment>
+    ) :
+        (
+            <React.Fragment>
+                <div id="home-bg">
+                    <video autoPlay loop muted id='home-video'>
+                        <source src={require('../images/razer_ad.mp4')} type='video/mp4' />
+                    </video>
+                </div>
+                <div></div>
+                <div id="callout">
+                    <h1>Gaming Mouses</h1>
+                    <p>
+                        Here at Superior Sensors, we pride ourselves in offering
+                        the best mice at affordable prices for all your gaming needs. Never miss another shot with our wide
+                        selection of premium products.
+                    </p>
+                    <div>
+                        <Link to={"/mouses"} className="btn btn-light btn-outline-dark mt-2">Get me a mouse!</Link>
+                    </div>
+                </div>
+            </React.Fragment>
 
-    )
+        ))
 }

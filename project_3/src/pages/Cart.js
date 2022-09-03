@@ -131,7 +131,7 @@ export default function Cart() {
 
                                                 <div className="custom-btn-group me-3 border-top pt-3 mt-3">
                                                     <a className="btn btn-dark btn-outline-light"
-                                                        href={BASE_URL + "/checkout/" + user_id}
+                                                        href={BASE_URL + "/checkout/" + user_id + '/checkout'}
                                                     >Checkout</a>
                                                 </div>
                                             </div>

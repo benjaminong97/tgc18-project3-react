@@ -20,48 +20,71 @@ export default function Mouses() {
     const [dpiSearch, setDpiSearch] = useState(0)
     const [gameTypeSearch, setGameTypeSearch] = useState('')
     const [connectivitySearch, setConnectivitySearch] = useState('')
+    const [loadingDone, setLoadingDone] = useState(false)
 
 
     useEffect(() => {
         const fetchMouses = async () => {
             let response = await axios.get(BASE_URL + "api/mouses")
             setMouses(response.data)
-
+            setLoadingDone(true)
         }
-        fetchMouses()
-    }, [])
-
-    useEffect(() => {
         const fetchBrands = async () => {
             let response = await axios.get(BASE_URL + "api/mouses/brands")
             setMouseBrands(response.data)
         }
-        fetchBrands()
-    }, [])
-
-    useEffect(() => {
         const fetchFeatures = async () => {
             let response = await axios.get(BASE_URL + "api/mouses/features")
             setMouseFeatures(response.data)
         }
-        fetchFeatures()
-    }, [])
-
-    useEffect(() => {
         const fetchGameType = async () => {
             let response = await axios.get(BASE_URL + "api/mouses/gametypes")
             setMouseGameTypes(response.data)
         }
-        fetchGameType()
-    }, [])
-
-    useEffect(() => {
         const fetchBacklightings = async () => {
             let response = await axios.get(BASE_URL + "api/mouses/backlightings")
             setMouseBacklightings(response.data)
         }
+        fetchBrands()
         fetchBacklightings()
+        fetchFeatures()
+        fetchGameType()
+        fetchMouses()
     }, [])
+
+    // useEffect(() => {
+    //     const fetchBrands = async () => {
+    //         let response = await axios.get(BASE_URL + "api/mouses/brands")
+    //         setMouseBrands(response.data)
+    //     }
+    //     fetchBrands()
+    // }, [])
+
+    // useEffect(() => {
+    //     const fetchFeatures = async () => {
+    //         let response = await axios.get(BASE_URL + "api/mouses/features")
+    //         setMouseFeatures(response.data)
+    //     }
+    //     fetchFeatures()
+    // }, [])
+
+    // useEffect(() => {
+    //     const fetchGameType = async () => {
+    //         let response = await axios.get(BASE_URL + "api/mouses/gametypes")
+    //         setMouseGameTypes(response.data)
+    //     }
+    //     fetchGameType()
+    // }, [])
+
+    // useEffect(() => {
+    //     const fetchBacklightings = async () => {
+    //         let response = await axios.get(BASE_URL + "api/mouses/backlightings")
+    //         setMouseBacklightings(response.data)
+    //     }
+    //     fetchBacklightings()
+    // }, [])
+
+    
 
     const updateBrand = e => {
 
@@ -157,9 +180,16 @@ export default function Mouses() {
         setMouses(response.data)
     }
 
-    return (
+    return(!loadingDone? (
+        <React.Fragment>
+           <div className='m-auto d-flex align-items-center h-100'>
+                <img src={require('../images/superior.gif')} style={{'position' : 'absolute', 'margin': 'auto', 'top': '0', 'bottom' : '0' , 'right' : '0', 'left' : '0'}}/>
+            </div> 
+        </React.Fragment>
+    ) : (
         <React.Fragment>
             <Container className="m-3">
+                {/* advertisement/ carousel  */}
 
                 <div className='mt-md-5 row'>
                     {/* Search */}
@@ -279,5 +309,5 @@ export default function Mouses() {
 
             </Container>
         </React.Fragment >
-    )
+    ))
 }
