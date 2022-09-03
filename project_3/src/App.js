@@ -15,8 +15,9 @@ import Home from './pages/Home'
 import Mouses from './pages/Mouses'
 import MouseDetails from './pages/MouseDetails';
 import Register from './pages/Register'
-import { Button, Nav } from 'react-bootstrap';
+import { Button, Nav, Navbar, Container } from 'react-bootstrap';
 import Cart from './pages/Cart';
+import Profile from './pages/Profile';
 
 const BASE_URL = "https://3000-benjaminong-tgc18projec-m60k3wuifkz.ws-us63.gitpod.io/"
 
@@ -32,7 +33,7 @@ function App() {
             const response = await axios.get(BASE_URL + 'api/users/profile', {
                 headers: {
                     authorization: 'Bearer' + accessToken,
-                    'id' : localStorage.getItem('user_id')
+                    'id': localStorage.getItem('user_id')
                 }
             })
 
@@ -46,68 +47,60 @@ function App() {
         accessTokenExists()
     }
 
-  return (
-    <Router>
-      <div className="navbar navbar-expand-md navbar-dark bg-dark flex-shrink-0">
+    return (
+        <Router>
+            <Navbar variant='dark' bg='dark' expand='lg'>
                 {/* Container wrapper */}
-                <div className="container-fluid">
-                    {/* Toggle button */}
-                    <button className="navbar-toggler mb-2" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon" />
-                    </button>
+                <Container className='m-3'>
 
-                    {/* Collapsible wrapper */}
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        {/* Navbar brand */}
-                        <Link to="/" className="navbar-brand">
-                            <img src={require('./images/superior.png')} style={{ height: '4rem', margin: '0 0.25rem' }} alt="Brand Logo" />
-                        </Link>
-                        {/* Left links */}
-                        <ul className="navbar-nav me-auto">
-                            <li className="nav-item">
-                                <Link to="/mouses" className="nav-link active">Shop</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/contact-us" className="nav-link active">Contact Us</Link>
-                            </li>
-                        </ul>
-                        {/* Left links */}
 
-                        <div className='d-flex'>
-                            {loggedIn == true ?
-                            <Button className="text-dark btn-light">Welcome, {localStorage.getItem('user_first_name')}</Button> :
-                            <p></p>    
-                        }
-                            <a href="/login" role='button'><img src={require('./images/user.png')} style={{height: '35px'}} className="mx-3" /></a>
-                            <a href='/cart' role='button'><img src={require('./images/shopping-cart.png')} style={{height: '35px'}}/></a>
-                        </div>
-                    </div>
-                    {/* Collapsible wrapper */}
-
-                    {/* Right elements */}
+                    {/* Navbar brand */}
+                    <Link to="/" className="navbar-brand">
+                        <img src={require('./images/superior.png')} style={{ height: '4rem', margin: '0 0.25rem' }} alt="Brand Logo" />
+                    </Link>
                     
-                    {/* Right elements */}
-                </div>
-                {/* Container wrapper */}
-            </div>
-      
+                    <ul className="navbar-nav me-auto">
+                        <li className="nav-item">
+                            <Link to="/mouses" className="nav-link active">Shop</Link>
+                        </li>
+                        
+                    </ul>
+                    
 
-      <Routes>
-        <Route path='/login' element={<Login/>} />
-        <Route path='/' element = {<Home/>}/>
-        <Route path='/mouses' element = {<Mouses/>}/>
-        <Route path='/mouses/:mouse_id' element = {<MouseDetails/>}/>
-        <Route path='/register' element = {<Register/>}/>
-        <Route path='/cart' element = {<Cart/>}/>
+                    <div className='justify-content-end'>
+                        {loggedIn == true ?
+                            <Button className="text-dark btn-light">Welcome, {localStorage.getItem('user_first_name')}</Button> :
+                            <p></p>
+                        }
+                        {loggedIn == true ? 
+                        <a href="/profile" role='button'><img src={require('./images/user.png')} style={{ height: '35px' }} className="mx-3" /></a>
+                        : 
+                        <a href="/login" role='button'><img src={require('./images/user.png')} style={{ height: '35px' }} className="mx-3" /></a>
+                        }
+                        <a href='/cart' role='button'><img src={require('./images/shopping-cart.png')} style={{ height: '35px' }} /></a>
+                    </div>
 
-      </Routes>
+                   
+                </Container>
+                
+            </Navbar>
 
-    </Router>
+
+            <Routes>
+                <Route path='/login' element={<Login />} />
+                <Route path='/' element={<Home />} />
+                <Route path='/mouses' element={<Mouses />} />
+                <Route path='/mouses/:mouse_id' element={<MouseDetails />} />
+                <Route path='/register' element={<Register />} />
+                <Route path='/cart' element={<Cart />} />
+                <Route path='/profile' element={<Profile/>} />
+
+            </Routes>
+
+        </Router>
 
 
-  );
+    );
 }
 
 export default App;

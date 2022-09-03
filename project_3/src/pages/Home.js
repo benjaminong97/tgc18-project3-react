@@ -23,15 +23,14 @@ export default function Home() {
                     </video>
                 </div>
                 <div></div>
-                <div id="callout">
+                <div id="callout" className='justify-content-center'>
                     <h1>Gaming Mouses</h1>
                     <p>
                         Here at Superior Sensors, we pride ourselves in offering
-                        the best mice at affordable prices for all your gaming needs. Never miss another shot with our wide
-                        selection of premium products.
+                        the best mice at affordable prices for all your gaming needs. 
                     </p>
                     <div>
-                        <Link to={"/mouses"} className="btn btn-light btn-outline-dark mt-2">Get me a mouse!</Link>
+                        <Link to={"/mouses"} className="btn btn-light btn-outline-dark mt-2 justify-content-center">Get me a mouse!</Link>
                     </div>
                 </div>
             </React.Fragment>

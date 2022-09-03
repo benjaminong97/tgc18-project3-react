@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Accordion, Breadcrumb, Container, Card, Badge } from 'react-bootstrap';
+import { Form, Accordion, Breadcrumb, Container, Card, Badge, Button } from 'react-bootstrap';
 import RangeSlider from 'react-bootstrap-range-slider';
 import { Link } from "react-router-dom";
 import axios from 'axios'
@@ -188,10 +188,15 @@ export default function Mouses() {
         </React.Fragment>
     ) : (
         <React.Fragment>
+            <div>
+                    <img src={require('../images/mousepage1.png')} style={{width: '100%'}} />
+                </div>
             <Container className="m-3">
                 {/* advertisement/ carousel  */}
-
-                <div className='mt-md-5 row'>
+                
+                
+                
+                <div className='row'>
                     {/* Search */}
 
                     <div className='col-12 col-md-3 mb-5' id='collapseExample'>
@@ -290,7 +295,7 @@ export default function Mouses() {
                                                 </div>
                                                 <div class="product-price-btn m-3">
 
-                                                    <button type="button">buy now</button>
+                                                    <Button >buy now</Button>
                                                 </div>
 
                                             </Link>
