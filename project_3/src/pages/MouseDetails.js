@@ -38,22 +38,22 @@ export default function MouseDetails() {
             let user_id = localStorage.getItem('user_id')
             // /:user_id/add/:mouse_id/:variant_id
             try {
-                await axios.post(BASE_URL + 'api/cart/' + user_id + "/add/" +  mouse_id + "/" + selectedVariant,
-                {
-                    headers: {
-                        authorization: `Bearer ${localStorage.getItem("accessToken")}`
+                await axios.post(BASE_URL + 'api/cart/' + user_id + "/add/" + mouse_id + "/" + selectedVariant,
+                    {
+                        headers: {
+                            authorization: `Bearer ${localStorage.getItem("accessToken")}`
+                        }
+
                     }
-                    
-                }
                 )
                 alert('Added to cart!')
-                
-            } catch(error) {
+
+            } catch (error) {
 
                 alert('Something went wrong')
                 return false
             }
-            
+
         } else if (!localStorage.getItem('user_id')) {
             alert('Please log in to add to cart')
 
@@ -97,21 +97,7 @@ export default function MouseDetails() {
                         <p className="header-small">Great for: {currentMouse['gameType']?.name} gaming</p>
                         <h3 className="subheader-text">${currentMouse.cost / 100}</h3>
                         <p className="mt-4 mb-0 body-text"><strong>Shape:</strong>{currentMouse.shape}</p>
-                        <span>
-                            {
-                                currentMouse.variants?.map(v => 
-                                    <span>
-                                        <input type='radio' name='colorVariant' id={v.id} 
-                                            value={v.id} checked={selectedVariant === v.id}
-                                            onChange = {selectVariant}
-                                        />
-                                        <label htmlFor={v.id}>
-                                            <span></span>
-                                        </label>
-                                    </span>
-                                    )
-                            }
-                        </span>
+                    
                         <p className="m-0 body-text"><strong>Connectivity:</strong> {currentMouse.connectivity}</p>
                         {/* <div className="mt-4">
                                 <button className="btn rounded-0 p-2 px-5 addtocart-btn" onClick={addToCart}>Add To Cart</button>
@@ -125,11 +111,40 @@ export default function MouseDetails() {
                             </div> */}
 
 
-                        <div className='pt-3 border-top mt-3'>
+                        <div className='pt-3 border-top border-bottom mt-3'>
                             <p>{currentMouse.description}</p>
-                        </div> 
+                        </div>
+
+
+                            <div className='mt-3'>
+                            <span>
+                            <p>Colors:</p>
+                            {
+                                currentMouse.variants?.map(v =>
+                                    <React.Fragment>
+                                        <span>
+                                            <input type='radio' name='colorVariant' id={v.id}
+                                                value={v.id} checked={selectedVariant === v.id}
+                                                onChange={selectVariant}
+                                            />
+                                            <label htmlFor={v.id}>
+                                                <span></span>
+                                            </label>
+                                         <br/>
+                                        {selectedVariant? <React.Fragment>
+                                            <p><span className='text-muted'>Stock left: </span>{v.stock}</p>
+                                        </React.Fragment> : null}
+                                        </span>
+                                    </React.Fragment>
+
+                                )
+                            }
+                        </span>
+                            </div>
+                        
 
                         <div className='mt-3'>
+                            
                             <Button onClick={addToCart}>
                                 Add to Cart
                             </Button>

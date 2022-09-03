@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Row, Col, Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 
 const BASE_URL = 'https://3000-benjaminong-tgc18projec-m60k3wuifkz.ws-us63.gitpod.io/'
@@ -37,17 +39,11 @@ export default function Cart() {
     }, [])
 
     const deleteCartItem = async (variant_id) => {
-        let user_id = localStorage.getItem('id')
-        await axios.get(BASE_URL + "api/cart")
+        
+        await axios.get(BASE_URL + "api/cart/" + user_id + '/remove/' + variant_id)
+        getCart()
     }
 
-    const increaseQty = () => {
-        cart.quantity += 1
-    }
-
-    const decreaseQty = () => {
-        cart.quantity -= 1
-    }
 
     return (
 
@@ -66,29 +62,64 @@ export default function Cart() {
                                                 {cart.map(c => (
                                                     <React.Fragment>
                                                         <div className="border-top">
-                                                            <div class="input-group">
-                                                                <input type="button" value="-" className="button-minus" onClick={async () => {
-                                                                    let newQty = (c.quantity - 1)
-                                                                    let response = await axios.post(BASE_URL + 'api/cart/' + user_id + '/update/' + c.variant_id,
-                                                                        {
-                                                                            'quantity': newQty
-                                                                        },
-                                                                    )
-                                                                    console.log(response.data)
-                                                                    await getCart()
-                                                                }} />
-                                                                <input type="number" step="1" max="" value={c.quantity} name="quantity" className="quantity-field" />
-                                                                <input type="button" value="+" className="button-plus" onClick={async () => {
-                                                                    let newQty = (c.quantity + 1)
-                                                                    let response = await axios.post(BASE_URL + 'api/cart/' + user_id + '/update/' + c.variant_id,
-                                                                        {
-                                                                            'quantity': newQty
-                                                                        },
-                                                                    )
-                                                                    console.log(response.data)
-                                                                    await getCart()
-                                                                }} />
-                                                            </div>
+
+                                                            <Row className='mt-3'>
+                                                                <Col>
+                                                                    <img src={c.variant.image_url} width="200px" className='img-fluid' />
+                                                                </Col>
+                                                                <Col>
+                                                                    <p>
+                                                                        <Link to={'/mouses/' + c.mouse_id} className="text-dark">{c.mouse.name}</Link>
+                                                                    </p>
+                                                                    <p>
+                                                                        <span className='text-muted'>Cost/ea: </span>{(c.mouse.cost / 100).toFixed(2)} SGD<br />
+                                                                        <span className='text-muted'>Color: </span>{c.variant.color.name} <br />
+                                                                        <span className='text-muted'>Stock left: </span>{c.variant.stock}
+
+
+                                                                    </p>
+                                                                </Col>
+                                                                <Col>
+                                                                    <div class="input-group">
+                                                                        <input type="button" value="-" className="button-minus" onClick={async () => {
+                                                                            let newQty = (c.quantity - 1)
+                                                                            if (c.quantity > 1) {
+                                                                                let response = await axios.post(BASE_URL + 'api/cart/' + user_id + '/update/' + c.variant_id,
+                                                                                    {
+                                                                                        'quantity': newQty
+                                                                                    },
+                                                                                )
+                                                                                console.log(response.data)
+                                                                                await getCart()
+                                                                            }
+
+                                                                        }} />
+                                                                        <input type="number" step="1" max="" value={c.quantity} name="quantity" className="quantity-field" />
+                                                                        <input type="button" value="+" className="button-plus" onClick={async () => {
+                                                                            let newQty = (c.quantity + 1)
+
+                                                                            if (c.quantity < c.variant.stock) {
+                                                                                let response = await axios.post(BASE_URL + 'api/cart/' + user_id + '/update/' + c.variant_id,
+                                                                                    {
+                                                                                        'quantity': newQty
+                                                                                    },
+                                                                                )
+                                                                                console.log(response.data)
+                                                                                await getCart()
+                                                                            }
+
+                                                                        }} />
+                                                                    </div>
+                                                                    <div>
+                                                                        <Button onClick={() => {deleteCartItem(c.variant.id)}}>
+                                                                            Delete
+                                                                        </Button>
+                                                                    </div>
+                                                                </Col>
+
+                                                            </Row>
+
+                                                        
 
                                                         </div>
 
@@ -98,7 +129,7 @@ export default function Cart() {
 
 
 
-                                                <div className="custom-btn-group me-3 border-top pt-3">
+                                                <div className="custom-btn-group me-3 border-top pt-3 mt-3">
                                                     <a className="btn btn-dark btn-outline-light"
                                                         href={BASE_URL + "/checkout/" + user_id}
                                                     >Checkout</a>
