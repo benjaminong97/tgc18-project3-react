@@ -3,6 +3,7 @@
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
     "react-bootstrap": "^2.5.0",
-    "react-bootstrap-range-slider": "^3.0.8"
+    "react-bootstrap-range-slider": "^3.0.8",
+    "react-native-counters": "^1.2.0"
   }
 }
