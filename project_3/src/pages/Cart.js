@@ -93,7 +93,7 @@ export default function Cart() {
                                                                     </p>
                                                                 </Col>
                                                                 <Col md={12}>
-                                                                    <Row>
+                                                                    <Row className= 'mt-3'>
                                                                         <Col>
                                                                             <input type="button" value="-" className="button-minus" onClick={async () => {
                                                                                 let newQty = (c.quantity - 1)

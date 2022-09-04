@@ -37,7 +37,7 @@ export default function Profile() {
         let response = await axios.get(BASE_URL + 'api/orders/' + user_id)
         console.log(response.data)
 
-        setMyOrders(response.data)
+        setMyOrders(response.data.reverse())
         setLoadingDone(true)
     }
 
