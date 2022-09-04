@@ -108,7 +108,7 @@ export default function MouseDetails() {
 
     return (
         <React.Fragment>
-            <div className="page-container container">
+            <div className="container">
                 <div className="page-header-2 pt-5 pb-4 my-2 mx-auto">
                     <nav aria-label="breadcrumb d-flex justify-content-center mb-2">
                         <ol class="breadcrumb b-crumb d-flex justify-content-center">
@@ -126,9 +126,9 @@ export default function MouseDetails() {
                                     <p className="legend">No image available for this product</p>
                                 </div> :
                                 currentMouse.variants?.map((v, i) =>
-                                    <CarouselItem>
-                                        <div key={i}><img src={v.image_url} alt="Not available" height="400" /></div>
-                                    </CarouselItem>)
+                                    <Carousel.Item key={i}>
+                                        <img src={v.image_url} alt="Not available" className='d-block w-100'  />
+                                    </Carousel.Item>)
                             }
                         </Carousel>
                     </Col>
@@ -189,7 +189,7 @@ export default function MouseDetails() {
                         </div>
 
 
-                        <div className='my-3'>
+                        <div className='mt-3'>
 
                             <Button onClick={addToCart}>
                                 Add to Cart
@@ -241,7 +241,7 @@ export default function MouseDetails() {
 
                 </div> */}
 
-                <div className="product-info mb-5 mt-4 mt-md-0 px-3 px-md-5 py-4 border-top border-dark">
+                <div className="product-info mb-5 mt-4 mt-md-0 px-3 px-md-5 py-4">
                     <Accordion defaultActiveKey="0" className="p-2">
                         {/* <Accordion.Item eventKey="0">
                             <Accordion.Header>Dimensions</Accordion.Header>
