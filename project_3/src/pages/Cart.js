@@ -73,7 +73,7 @@ export default function Cart() {
                                                 <h3 className="mb-3">My Cart</h3>
 
                                                 {cart.map(c => (
-                                                    <React.Fragment>
+                                                    <React.Fragment key={c.id}>
                                                         <div className="border-top">
 
                                                             <Row className='my-3'>

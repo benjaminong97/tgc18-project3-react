@@ -75,7 +75,7 @@ export default function Profile() {
                                                     <h3 className='mb-3'>My Orders</h3>
 
                                                     {myOrders.map(o => (
-                                                        <React.Fragment>
+                                                        <React.Fragment key={o.id}>
                                                             <div className='border border-dark mt-3'>
                                                                 <div>
                                                                     <h5 className='m-3'>
@@ -83,7 +83,7 @@ export default function Profile() {
                                                                     </h5>
                                                                 </div>
                                                                 {o.orderItems?.map(i => (
-                                                                    <React.Fragment>
+                                                                    <React.Fragment key={i.id}>
                                                                         <div className='border-top mb-2'>
                                                                             <Row className='mt-3'>
                                                                                 <Col>
