@@ -48,10 +48,14 @@ export default function Login() {
 
     return(
         <React.Fragment>
-            
+            <div id="home-bg">
+                    <video autoPlay loop muted id='home-video'>
+                        <source src={require('../images/razer_ad.mp4')} type='video/mp4' />
+                    </video>
+                </div>
             <Container>
-                <div className="row">
-                    <div className="form mx-auto col-md-4 mt-4">
+                <div className="row" id='callout2'>
+                    <div className="">
                         <h1 className="text-center page-title-large">Sign In</h1>
                         <p className="text-center page-subtitle">Sign in with your email and password.</p>
                         <Form className="my-4">

@@ -154,7 +154,7 @@ export default function Cart() {
                                                     <h5 className='text-muted'>Total Cost: SGD{getTotalCost()}</h5>
 
                                                     <a className="btn btn-dark btn-outline-light btn-block"
-                                                        href={BASE_URL + "/checkout/" + user_id + '/checkout'}
+                                                        href={BASE_URL + "checkout/" + user_id + '/checkout'}
                                                     >Checkout</a>
                                                 </div>
                                             </div>

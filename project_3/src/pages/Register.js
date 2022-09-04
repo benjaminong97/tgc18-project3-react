@@ -73,9 +73,14 @@ export default function Register() {
 
     return (
         <React.Fragment>
+            <div id="home-bg">
+                    <video autoPlay loop muted id='home-video'>
+                        <source src={require('../images/razer_ad.mp4')} type='video/mp4' />
+                    </video>
+                </div>
             <Container>
-                <div className='row'>
-                    <div className="form mx-auto col-md-4 mt-4">
+                <div className='row' id='callout2'>
+                    <div>
                         <h2 className="text-center page-title-large">Create Account</h2>
                         <p className="text-center page-subtitle">Please fill in the form below</p>
                         <Form className='my-3'>
