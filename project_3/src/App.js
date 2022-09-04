@@ -3,7 +3,7 @@ import './App.css';
 import './Style.css'
 import axios from 'axios'
 import "bootstrap/dist/css/bootstrap.min.css"
-import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
+
 
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom'
 import React, { useState } from 'react'
