@@ -283,7 +283,7 @@ export default function Mouses() {
                             {mouses.map((m) => (
                                 <div className='col' key={m.id}>
                                     <Card bg='light' style={{ 'height': "580px"}}>
-                                        <div class="wrapper position-relative">
+                                        <div className="wrapper position-relative">
                                             <Link to={'/mouses/' + m.id} className="text-decoration-none text-reset">
                                                 <div className='img'>
                                                     <img src={m.variants[0].image_url} className='card-img-top rounded-0' alt='mouse image' style={{ 'height': '270px' }} />
@@ -299,7 +299,7 @@ export default function Mouses() {
                                                         <p>Features:</p>
                                                         <ul>
                                                         {
-                                                            m.features.map(f => (<li className='text-muted'>{f.name}</li>))
+                                                            m.features.map(f => (<li className='text-muted' key={f.id}>{f.name}</li>))
                                                         }
                                                         </ul>
                                                         
