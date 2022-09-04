@@ -30,7 +30,7 @@ export default function Profile() {
         for (let item of orderItems) {
             cost += item.variant.mouse.cost
         }
-        return ((cost/100).toFixed(2))
+        return ((cost / 100).toFixed(2))
     }
 
     const getOrders = async () => {
@@ -51,91 +51,98 @@ export default function Profile() {
     }, [])
 
     return (
-        !loadingDone ? (<React.Fragment>
-            <div className='m-auto d-flex align-items-center h-100'>
-                <img src={require('../images/superior.gif')} style={{ 'position': 'absolute', 'margin': 'auto', 'top': '0', 'bottom': '0', 'right': '0', 'left': '0' }} />
-            </div>
 
-        </React.Fragment>) : (
-            <React.Fragment>
-                <div className='container-fluid py-4'>
-                    <div className='container'>
-                        {myOrders.length !== 0 ?
-                            <div className="h-100 p-4">
-                                <div className="row d-flex justify-content-center align-items-center h-100">
-                                    <div className="col-12">
-                                        <div>
-                                            <h3 className='mb-3'>My Orders</h3>
+        !checkLoggedIn ? (
+            <div>
+                <p className="cart-message py-4 lead text-center">Please log in to view your shopping cart.</p>
+            </div>)
+            :
+            (
+                !loadingDone ? (<React.Fragment>
+                    <div className='m-auto d-flex align-items-center h-100'>
+                        <img src={require('../images/superior.gif')} style={{ 'position': 'absolute', 'margin': 'auto', 'top': '0', 'bottom': '0', 'right': '0', 'left': '0' }} />
+                    </div>
 
-                                            {myOrders.map(o => (
-                                                <React.Fragment>
-                                                    <div className='border border-dark mt-3'>
-                                                        <div>
-                                                            <h5 className='m-3'>
-                                                                Order Summary :
-                                                            </h5>
-                                                        </div>
-                                                        {o.orderItems?.map(i => (
-                                                            <React.Fragment>
-                                                                <div className='border-top mb-2'>
-                                                                    <Row className='mt-3'>
-                                                                        <Col>
-                                                                            <img src={i.variant.image_url} width='200px' className='img-fluid' />
-                                                                        </Col>
+                </React.Fragment>) : (
+                    <React.Fragment>
+                        <div className='container-fluid py-4'>
+                            <div className='container'>
+                                {myOrders.length !== 0 ?
+                                    <div className="h-100 p-4">
+                                        <div className="row d-flex justify-content-center align-items-center h-100">
+                                            <div className="col-12">
+                                                <div>
+                                                    <h3 className='mb-3'>My Orders</h3>
 
-                                                                        <Col>
-                                                                            <p>
-                                                                                <Link to={'/mouses/' + i.variant.mouse_id}>{i.variant.mouse.name}</Link>
-                                                                            </p>
-                                                                            <p>
-                                                                                <span className='text-muted'>Cost/ea: </span>{(i.variant.mouse.cost / 100).toFixed(2)} SGD<br />
-                                                                                <span className='text-muted'>Color: </span>{i.variant.color.name} <br />
-                                                                                <span className='text-muted'>Qty: </span>{i.quantity}
-                                                                            </p>
-                                                                        </Col>
-                                                                        <Col>
+                                                    {myOrders.map(o => (
+                                                        <React.Fragment>
+                                                            <div className='border border-dark mt-3'>
+                                                                <div>
+                                                                    <h5 className='m-3'>
+                                                                        Order Summary :
+                                                                    </h5>
+                                                                </div>
+                                                                {o.orderItems?.map(i => (
+                                                                    <React.Fragment>
+                                                                        <div className='border-top mb-2'>
+                                                                            <Row className='mt-3'>
+                                                                                <Col>
+                                                                                    <img src={i.variant.image_url} width='200px' className='img-fluid' />
+                                                                                </Col>
 
-                                                                        </Col>
-                                                                    </Row>
+                                                                                <Col>
+                                                                                    <p>
+                                                                                        <Link to={'/mouses/' + i.variant.mouse_id}>{i.variant.mouse.name}</Link>
+                                                                                    </p>
+                                                                                    <p>
+                                                                                        <span className='text-muted'>Cost/ea: </span>{(i.variant.mouse.cost / 100).toFixed(2)} SGD<br />
+                                                                                        <span className='text-muted'>Color: </span>{i.variant.color.name} <br />
+                                                                                        <span className='text-muted'>Qty: </span>{i.quantity}
+                                                                                    </p>
+                                                                                </Col>
+                                                                                <Col>
+
+                                                                                </Col>
+                                                                            </Row>
+
+                                                                        </div>
+
+                                                                    </React.Fragment>
+                                                                ))}
+                                                                <div className='border-top'>
+                                                                    <p className='m-3'>
+                                                                        Total Cost: {
+                                                                            getTotalCost(o.orderItems)
+                                                                        }   <br /><br />
+                                                                        Transaction ID: {o.payment_reference} <br /><br />
+                                                                        Delivery address: <br />
+                                                                        {o.address.line_1}, {o.address.line_2}<br />
+                                                                        S({o.address.postal_code})
+                                                                        <br /><br />
+                                                                        Delivery Status: {o.status.name}
+                                                                        <br /><br />
+                                                                        Order Date: {o.date.slice(0, 10)}
+                                                                    </p>
 
                                                                 </div>
-
-                                                            </React.Fragment>
-                                                        ))}
-                                                        <div className='border-top'>
-                                                            <p className='m-3'>
-                                                                Total Cost: {
-                                                                    getTotalCost(o.orderItems)
-                                                                }   <br/><br/>
-                                                                Transaction ID: {o.payment_reference} <br/><br/>
-                                                                Delivery address: <br/>
-                                                                {o.address.line_1}, {o.address.line_2}<br/>
-                                                                S({o.address.postal_code})
-                                                                <br/><br/>
-                                                                Delivery Status: {o.status.name}
-                                                                <br/><br/>
-                                                                Order Date: {o.date.slice(0,10)}
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
-                                                </React.Fragment>
-                                            ))}
+                                                            </div>
+                                                        </React.Fragment>
+                                                    ))}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
 
-                            :
-                            <div>
-                                <p className="cart-message py-4 lead text-center">You have not made any orders.</p>
+                                    :
+                                    <div>
+                                        <p className="cart-message py-4 lead text-center">You have not made any orders.</p>
+                                    </div>
+                                }
                             </div>
-                        }
-                    </div>
-                </div>
-            </React.Fragment>
-        )
+                        </div>
+                    </React.Fragment>
+                )
 
+            )
     )
-
 }

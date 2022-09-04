@@ -41,6 +41,9 @@ export default function Login() {
                 setLoginFailed(true)
             }
         }
+
+        navigate('/')
+        window.location.reload()
     }
 
     return(

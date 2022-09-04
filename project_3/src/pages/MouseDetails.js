@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Accordion, Toast, Carousel, Badge, CarouselItem, Row, Col, Button } from 'react-bootstrap';
+import { Accordion, Form, Carousel, Card, CarouselItem, Row, Col, Button, Container } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios'
+
 
 const BASE_URL = "https://3000-benjaminong-tgc18projec-m60k3wuifkz.ws-us63.gitpod.io/"
 
@@ -9,10 +10,20 @@ export default function MouseDetails() {
     const [currentMouse, setCurrentMouse] = useState('')
     const [selectedVariant, setSelectedVariant] = useState('')
     const [variantSelected, setVariantSelected] = useState(false)
+    const [newComment, setNewComment] = useState('')
+    const [rating, setRating] = useState(5)
+    const [reviews, setReviews] = useState([])
 
     let { mouse_id } = useParams()
 
     const navigate = useNavigate()
+
+    const capitalizeFirstLetter = (string) => {
+        if (string) {
+            return string.slice(0,1).toUpperCase() + string.slice(1);
+        }
+        
+      }
 
     useEffect(() => {
         const fetchMouse = async () => {
@@ -23,6 +34,7 @@ export default function MouseDetails() {
         }
 
         fetchMouse()
+        getReviews()
     }, [mouse_id])
 
     const selectVariant = (e) => {
@@ -30,6 +42,19 @@ export default function MouseDetails() {
         setVariantSelected(true)
     }
 
+    const getReviews = async () => {
+        try {
+            let response = await axios.get(BASE_URL + 'api/mouses/comment/' + mouse_id, {
+                mouse_id : mouse_id
+            })
+            console.log(response.data)
+
+            setReviews(response.data)
+
+        } catch (e) {
+            alert('could not get reviews')
+        }
+    }
 
     const addToCart = async () => {
 
@@ -60,6 +85,24 @@ export default function MouseDetails() {
         } else if (variantSelected === false) {
             alert('Please select a variant')
         }
+    }
+
+    const sendReview = async() => {
+        if (localStorage.getItem('user_id')) {
+            try {
+                await axios.post(BASE_URL + 'api/mouses/comment', {
+                    mouse_id : mouse_id,
+                    rating : rating,
+                    comment: newComment
+                })
+                window.location.reload()
+            } catch (e) {
+                alert('something went wrong')
+                return false
+            }
+        } else (
+            alert('Please log in to review the product.')
+        )
     }
 
 
@@ -94,11 +137,14 @@ export default function MouseDetails() {
                             <img src={currentMouse.brand?.image_url} height='40' />
                             <h1 className="header-text mx-3">{currentMouse.name}</h1>
                         </div>
-                        <p className="header-small">Great for: {currentMouse['gameType']?.name} gaming</p>
+                        
                         <h3 className="subheader-text">${currentMouse.cost / 100}</h3>
-                        <p className="mt-4 mb-0 body-text"><strong>Shape:</strong>{currentMouse.shape}</p>
+                        <p className="mb-0 body-text"><strong>Great for:</strong> {currentMouse['gameType']?.name} gaming</p>
+                        <p className="mb-0 body-text"><strong>Shape:</strong> {capitalizeFirstLetter(currentMouse.shape)}</p>
+                        <p className="m-0 body-text"><strong>Connectivity:</strong> {capitalizeFirstLetter(currentMouse.connectivity)}</p>
+                        <p className="m-0 body-text"><strong>Dimensions:</strong> L: {currentMouse.length}mm X W: {currentMouse.width}mm X H: {currentMouse.height}mm</p>
+                        <p className="mb-0 body-text"><strong>Weight:</strong> {(currentMouse.weight)} grams</p>
                     
-                        <p className="m-0 body-text"><strong>Connectivity:</strong> {currentMouse.connectivity}</p>
                         {/* <div className="mt-4">
                                 <button className="btn rounded-0 p-2 px-5 addtocart-btn" onClick={addToCart}>Add To Cart</button>
                                 
@@ -116,35 +162,35 @@ export default function MouseDetails() {
                         </div>
 
 
-                            <div className='mt-3'>
+                        <div className='mt-3'>
                             <span>
-                            <p>Colors:</p>
-                            {
-                                currentMouse.variants?.map(v =>
-                                    <React.Fragment>
-                                        <span>
-                                            <input type='radio' name='colorVariant' id={v.id}
-                                                value={v.id} checked={selectedVariant === v.id}
-                                                onChange={selectVariant}
-                                            />
-                                            <label htmlFor={v.id}>
-                                                <span></span>
-                                            </label>
-                                         <br/>
-                                        {selectedVariant? <React.Fragment>
-                                            <p><span className='text-muted'>Stock left: </span>{v.stock}</p>
-                                        </React.Fragment> : null}
-                                        </span>
-                                    </React.Fragment>
+                                <p>Colors:</p>
+                                {
+                                    currentMouse.variants?.map(v =>
+                                        <React.Fragment>
+                                            <span>
+                                                <input type='radio' name='colorVariant' id={v.id}
+                                                    value={v.id} checked={selectedVariant === v.id}
+                                                    onChange={selectVariant}
+                                                />
+                                                <label htmlFor={v.id}>
+                                                    <span></span>
+                                                </label>
+                                                <br />
+                                                {selectedVariant ? <React.Fragment>
+                                                    <p><span className='text-muted'>Stock left: </span>{v.stock}</p>
+                                                </React.Fragment> : null}
+                                            </span>
+                                        </React.Fragment>
 
-                                )
-                            }
-                        </span>
-                            </div>
-                        
+                                    )
+                                }
+                            </span>
+                        </div>
+
 
                         <div className='mt-3'>
-                            
+
                             <Button onClick={addToCart}>
                                 Add to Cart
                             </Button>
@@ -197,7 +243,7 @@ export default function MouseDetails() {
 
                 <div className="product-info mb-5 mt-4 mt-md-0 px-3 px-md-5 py-4">
                     <Accordion defaultActiveKey="0" className="p-2">
-                        <Accordion.Item eventKey="0">
+                        {/* <Accordion.Item eventKey="0">
                             <Accordion.Header>Dimensions</Accordion.Header>
                             <Accordion.Body className="body-text">
                                 <p className="mt-2 body-text">Height: {currentMouse.height}mm</p>
@@ -205,7 +251,7 @@ export default function MouseDetails() {
                                 <p className="mt-2 body-text">Width: {currentMouse.width}mm</p>
                                 <p className="mt-2 body-text">Weight: {currentMouse.weight}grams</p>
                             </Accordion.Body>
-                        </Accordion.Item>
+                        </Accordion.Item> */}
                         <Accordion.Item eventKey="1">
                             <Accordion.Header>Features</Accordion.Header>
                             <Accordion.Body>
@@ -222,6 +268,64 @@ export default function MouseDetails() {
                         </Accordion.Item>
                     </Accordion>
                 </div>
+
+                <div>
+                    <Row className='container'>
+                        <Col>
+                        <label for="customRange3" class="form-label">Your Rating (1 to 5):</label>
+                        <div className='d-flex'>
+                            <input type="range" class="form-range" min={1} max={5} step={1} id="customRange3" 
+                            value={rating} onChange={e => setRating(e.target.value)}
+                            />
+                        </div>
+                        </Col>
+                        <Col></Col>
+                        
+                    </Row>
+
+
+                    <Form.Control
+                        as='textarea'
+                        rows={3}
+                        id="caption"
+                        placeholder="Type your comment here.."
+                        name="newComment"
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        className="m-2"
+                    />
+                    <Button variant="secondary"
+                        className="m-2"
+                        onClick = {sendReview}
+                    >Comment</Button>
+                </div>
+
+                <div className='mt-3'>
+                    <Container>
+                        {reviews.length >= 1 ? 
+                        reviews.map(r => (
+                            <React.Fragment>
+                                <Container className="my-3">
+                                    <Card>
+                                        <Card.Header>
+                                            <figcaption>{(r.review_datetime).slice(0,10)}<br/>Rating: {r.rating}/5</figcaption>
+                                            <h6>{r.comment}</h6>
+                                        </Card.Header>
+
+                                    </Card>
+
+                                </Container>
+                            </React.Fragment>
+                        )) :
+                        <div>
+                            <p>This product has no reviews yet.</p>
+                        </div>    
+                    }
+
+                    </Container>
+
+                </div>
+
 
             </div>
         </React.Fragment >

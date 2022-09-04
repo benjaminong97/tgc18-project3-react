@@ -191,7 +191,7 @@ export default function Mouses() {
             <div>
                     <img src={require('../images/mousepage1.png')} style={{width: '100%'}} />
                 </div>
-            <Container className="m-3">
+            <Container fluid  className='mt-3'>
                 {/* advertisement/ carousel  */}
                 
                 
@@ -199,7 +199,7 @@ export default function Mouses() {
                 <div className='row'>
                     {/* Search */}
 
-                    <div className='col-12 col-md-3 mb-5' id='collapseExample'>
+                    <div className='col-12 col-md-3 mb-5 container' id='collapseExample'>
                         <div className="">
                             <div className='input-box d-flex flex-row align-items-center'>
                                 <Form.Control name='nameSearch' value={nameSearch} onChange={(e) => setNameSearch(e.target.value)}
@@ -269,7 +269,7 @@ export default function Mouses() {
 
                     {/* Listings */}
                     <div className="mb-5 col-12 col-md-9">
-                        <div className="pb-3 row row-cols-2 row-cols-md-2 row-cols-lg-3 g-3 g-md-4">
+                        <div className="pb-3 row row-cols-lg-3 g-3 g-md-4 container">
                             {mouses.map((m) => (
                                 <div className='col' key={m.id}>
                                     <Card bg='light' style={{ 'height': "470px" }}>
