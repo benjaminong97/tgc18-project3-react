@@ -165,33 +165,36 @@ export default function MouseDetails() {
                         <div className='mt-3'>
                             <span>
                                 <p>Colors:</p>
+                                <div className='d-flex'>
                                 {
                                     currentMouse.variants?.map(v =>
                                         <React.Fragment>
-                                            <span className=''>
+                                            <span className='me-3'>
                                                 <input type='radio' name='colorVariant' id={v.id}
                                                     value={v.id} checked={selectedVariant === v.id}
                                                     onChange={selectVariant}
                                                 />
-                                                <label htmlFor={v.id}>
+                                                <label htmlFor={v.id} className='mx-2'>
                                                     <span>{v.color.name}</span>
                                                 </label>
                                                 <br />
-                                                {selectedVariant ? <React.Fragment>
+                                                 <React.Fragment>
                                                     <p><span className='text-muted'>Stock left: </span>{v.stock}</p>
-                                                </React.Fragment> : null}
+                                                </React.Fragment> 
                                             </span>
                                         </React.Fragment>
 
                                     )
                                 }
+                                </div>
+                                
                             </span>
                         </div>
 
 
                         <div className='mt-3'>
 
-                            <Button onClick={addToCart}>
+                            <Button variant='info' onClick={addToCart} >
                                 Add to Cart
                             </Button>
                         </div>
