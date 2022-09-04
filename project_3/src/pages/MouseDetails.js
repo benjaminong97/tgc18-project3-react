@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios'
 
 
-const BASE_URL = "https://3000-benjaminong-tgc18projec-m60k3wuifkz.ws-us63.gitpod.io/"
+const BASE_URL = "https://superior-sensors.herokuapp.com/"
 
 export default function MouseDetails() {
     const [currentMouse, setCurrentMouse] = useState('')
@@ -119,7 +119,7 @@ export default function MouseDetails() {
                 </div>
                 <Row>
                     <Col xs={12} lg={6}>
-                        <Carousel autoFocus={true} emulateTouch={true} useKeyboardArrows={true}>
+                        <Carousel autoFocus={true} emulateTouch={true}>
                             {currentMouse.variants?.length === 0 ?
                                 <div>
                                     <img src='http://res.cloudinary.com/nanometre/image/upload/v1651226796/yuyr6i2kxlmivpgxrs8r.png' alt='notavailable' />
@@ -138,7 +138,7 @@ export default function MouseDetails() {
                             <h1 className="header-text mx-3">{currentMouse.name}</h1>
                         </div>
                         
-                        <h3 className="subheader-text">${currentMouse.cost / 100}</h3>
+                        <h3 className="subheader-text">${(currentMouse.cost / 100).toFixed(2)}</h3>
                         <p className="mb-0 body-text"><strong>Great for:</strong> {currentMouse['gameType']?.name} gaming</p>
                         <p className="mb-0 body-text"><strong>Shape:</strong> {capitalizeFirstLetter(currentMouse.shape)}</p>
                         <p className="m-0 body-text"><strong>Connectivity:</strong> {capitalizeFirstLetter(currentMouse.connectivity)}</p>
@@ -168,13 +168,13 @@ export default function MouseDetails() {
                                 {
                                     currentMouse.variants?.map(v =>
                                         <React.Fragment>
-                                            <span>
+                                            <span className=''>
                                                 <input type='radio' name='colorVariant' id={v.id}
                                                     value={v.id} checked={selectedVariant === v.id}
                                                     onChange={selectVariant}
                                                 />
                                                 <label htmlFor={v.id}>
-                                                    <span></span>
+                                                    <span>{v.color.name}</span>
                                                 </label>
                                                 <br />
                                                 {selectedVariant ? <React.Fragment>
@@ -189,7 +189,7 @@ export default function MouseDetails() {
                         </div>
 
 
-                        <div className='mt-3'>
+                        <div className='my-3'>
 
                             <Button onClick={addToCart}>
                                 Add to Cart
@@ -241,7 +241,7 @@ export default function MouseDetails() {
 
                 </div> */}
 
-                <div className="product-info mb-5 mt-4 mt-md-0 px-3 px-md-5 py-4">
+                <div className="product-info mb-5 mt-4 mt-md-0 px-3 px-md-5 py-4 border-top border-dark">
                     <Accordion defaultActiveKey="0" className="p-2">
                         {/* <Accordion.Item eventKey="0">
                             <Accordion.Header>Dimensions</Accordion.Header>
@@ -269,14 +269,15 @@ export default function MouseDetails() {
                     </Accordion>
                 </div>
 
-                <div>
+                <div className='border-top border-dark p-3'>
                     <Row className='container'>
                         <Col>
-                        <label for="customRange3" class="form-label">Your Rating (1 to 5):</label>
+                        <label for="customRange3" class="form-label">Your Rating: {rating}/5</label>
                         <div className='d-flex'>
                             <input type="range" class="form-range" min={1} max={5} step={1} id="customRange3" 
                             value={rating} onChange={e => setRating(e.target.value)}
                             />
+                            
                         </div>
                         </Col>
                         <Col></Col>

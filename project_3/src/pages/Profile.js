@@ -10,7 +10,7 @@ export default function Profile() {
     const [checkLoggedIn, setCheckLoggedIn] = useState(false)
     const [loadingDone, setLoadingDone] = useState(false)
 
-    const BASE_URL = 'https://3000-benjaminong-tgc18projec-m60k3wuifkz.ws-us63.gitpod.io/'
+    const BASE_URL = 'https://superior-sensors.herokuapp.com/'
 
     const user_id = localStorage.getItem('user_id')
 
@@ -28,7 +28,7 @@ export default function Profile() {
     const getTotalCost = (orderItems) => {
         let cost = 0
         for (let item of orderItems) {
-            cost += item.variant.mouse.cost
+            cost += (item.variant.mouse.cost * item.quantity)
         }
         return ((cost / 100).toFixed(2))
     }
@@ -111,10 +111,11 @@ export default function Profile() {
                                                                 ))}
                                                                 <div className='border-top'>
                                                                     <p className='m-3'>
+                                                                        Transaction ID: {o.payment_reference} <br /><br />
                                                                         Total Cost: {
                                                                             getTotalCost(o.orderItems)
                                                                         }   <br /><br />
-                                                                        Transaction ID: {o.payment_reference} <br /><br />
+
                                                                         Delivery address: <br />
                                                                         {o.address.line_1}, {o.address.line_2}<br />
                                                                         S({o.address.postal_code})

@@ -24,9 +24,9 @@ export default function Home() {
                 </div>
                 <div></div>
                 <div id="callout" className='justify-content-center'>
-                    <h1>Gaming Mouses</h1>
+                    <h1>Superior Sensors</h1>
                     <p>
-                        Here at Superior Sensors, we pride ourselves in offering
+                        We pride ourselves in offering
                         the best mice at affordable prices for all your gaming needs. 
                     </p>
                     <div>

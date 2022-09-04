@@ -1,10 +1,10 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Container } from 'react-bootstrap';
 import { useState } from "react"
 import axios from 'axios'
 
-const BASE_URL = 'https://3000-benjaminong-tgc18projec-m60k3wuifkz.ws-us63.gitpod.io'
+const BASE_URL = 'https://superior-sensors.herokuapp.com'
 
 export default function Register() {
     const navigate = useNavigate()
@@ -16,7 +16,7 @@ export default function Register() {
         'password': '',
         'confirm_password': ''
     })
-    
+
     const [invalidFName, setInvalidFName] = useState(false)
     const [invalidLName, setInvalidLName] = useState(false)
     const [invalidEmail, setInvalidEmail] = useState(false)
@@ -56,7 +56,7 @@ export default function Register() {
             setInvalidPassword(true)
         }
 
-        if (registerForm.confirm_password != registerForm.password){
+        if (registerForm.confirm_password != registerForm.password) {
             setInvalidCPassword(true)
         }
 
@@ -71,41 +71,44 @@ export default function Register() {
     }
 
 
-    return(
+    return (
         <React.Fragment>
-            <div className="container">
-                <div>
-                    <div>
-                        <h2 >Create Account</h2>
-                        <p>Please fill in the form below</p>
+            <Container>
+                <div className='row'>
+                    <div className="form mx-auto col-md-4 mt-4">
+                        <h2 className="text-center page-title-large">Create Account</h2>
+                        <p className="text-center page-subtitle">Please fill in the form below</p>
                         <Form className='my-3'>
                             <Form.Control type="text" name='first_name' value={registerForm.first_name} onChange={updateFormField}
-                            placeholder='First Name'/>
-                            {invalidFName === true ? <Form.Text className="danger">Please enter a first name</Form.Text>: null}
+                                placeholder='First Name' className='form-input bg-transparent rounded-0' />
+                            {invalidFName === true ? <Form.Text className="danger">Please enter a first name</Form.Text> : null}
 
                             <Form.Control type='text' name='last_name' value={registerForm.last_name} onChange={updateFormField}
-                            placeholder='Last Name'/>
-                            {invalidLName === true ? <Form.Text className="danger">Please enter a last name</Form.Text>: null}
+                                placeholder='Last Name' className='mt-3 form-input bg-transparent rounded-0' />
+                            {invalidLName === true ? <Form.Text className="danger">Please enter a last name</Form.Text> : null}
 
                             <Form.Control type='email' name='email' value={registerForm.email} onChange={updateFormField}
-                            placeholder='Email'/>
-                            {invalidEmail === true ? <Form.Text className="danger">Please enter a valid email</Form.Text>: null}
+                                placeholder='Email' className='mt-3 form-input bg-transparent rounded-0' />
+                            {invalidEmail === true ? <Form.Text className="danger">Please enter a valid email</Form.Text> : null}
 
                             <Form.Control type="password" name='password' value={registerForm.password} onChange={updateFormField}
-                            placeholder="Password"/>
+                                placeholder="Password" className='mt-3 form-input bg-transparent rounded-0' />
                             {invalidPassword === true ? <Form.Text className="danger">
                                 Please enter a valid password, password must be at least 6 characters long and must not exceed 24 characters
-                            </Form.Text>: null}
+                            </Form.Text> : null}
 
                             <Form.Control type="password" name="confirm_password" value={registerForm.confirm_password} onChange={updateFormField}
-                            placeholder="Re-enter password"/>
-                            {invalidCPassword === true ? <Form.Text className="danger">Passwords must match</Form.Text>: null}
+                                placeholder="Re-enter password" className='mt-3 form-input bg-transparent rounded-0' />
+                            {invalidCPassword === true ? <Form.Text className="danger">Passwords must match</Form.Text> : null}
 
-                            <Button className="btn-secondary btn-fluid" onClick={register}>Register</Button>
+                            <div className='d-grid mt-4'>
+                                <button className="rounded-0 signin-btn" onClick={register}>Register</button>
+                            </div>
+
                         </Form>
                     </div>
                 </div>
-            </div>
+            </Container>
         </React.Fragment>
     )
 }

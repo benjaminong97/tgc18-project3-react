@@ -19,7 +19,7 @@ import { Button, Nav, Navbar, Container, NavDropdown } from 'react-bootstrap';
 import Cart from './pages/Cart';
 import Profile from './pages/Profile';
 
-const BASE_URL = "https://3000-benjaminong-tgc18projec-m60k3wuifkz.ws-us63.gitpod.io/"
+const BASE_URL = "https://superior-sensors.herokuapp.com/"
 
 
 function App() {

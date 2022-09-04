@@ -4,7 +4,7 @@ import { Row, Col, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 
-const BASE_URL = 'https://3000-benjaminong-tgc18projec-m60k3wuifkz.ws-us63.gitpod.io/'
+const BASE_URL = 'https://superior-sensors.herokuapp.com/'
 
 export default function Cart() {
 
@@ -39,9 +39,22 @@ export default function Cart() {
     }, [])
 
     const deleteCartItem = async (variant_id) => {
-        
+
         await axios.get(BASE_URL + "api/cart/" + user_id + '/remove/' + variant_id)
         getCart()
+    }
+
+    const getTotalCost = () => {
+        let totalCost = 0
+        if (cart) {
+            
+            for (let item of cart) {
+                totalCost += (item.mouse.cost * item.quantity)
+            }
+
+            
+        }
+        return ((totalCost/100).toFixed(2))
     }
 
 
@@ -49,11 +62,11 @@ export default function Cart() {
 
         <React.Fragment>
             <div className="container-fluid py-4">
-                <div className="container content-container">
+                <div className="container">
                     {checkLoggedIn === true ?
                         <>
                             {cart.length !== 0 ?
-                                <div className="h-100 rounded-3 shadow-lg border border-dark" style={{ width: "90%" }}>
+                                <div className="h-100 border border-dark" style={{ width: "90%" }}>
                                     <div className="h-100 p-4">
                                         <div className="row d-flex justify-content-center align-items-center h-100">
                                             <div className="col-12">
@@ -63,7 +76,7 @@ export default function Cart() {
                                                     <React.Fragment>
                                                         <div className="border-top">
 
-                                                            <Row className='mt-3'>
+                                                            <Row className='my-3'>
                                                                 <Col>
                                                                     <img src={c.variant.image_url} width="200px" className='img-fluid' />
                                                                 </Col>
@@ -79,47 +92,55 @@ export default function Cart() {
 
                                                                     </p>
                                                                 </Col>
-                                                                <Col>
-                                                                    <div class="input-group">
-                                                                        <input type="button" value="-" className="button-minus" onClick={async () => {
-                                                                            let newQty = (c.quantity - 1)
-                                                                            if (c.quantity > 1) {
-                                                                                let response = await axios.post(BASE_URL + 'api/cart/' + user_id + '/update/' + c.variant_id,
-                                                                                    {
-                                                                                        'quantity': newQty
-                                                                                    },
-                                                                                )
-                                                                                console.log(response.data)
-                                                                                await getCart()
-                                                                            }
+                                                                <Col md={12}>
+                                                                    <Row>
+                                                                        <Col>
+                                                                            <input type="button" value="-" className="button-minus" onClick={async () => {
+                                                                                let newQty = (c.quantity - 1)
+                                                                                if (c.quantity > 1) {
+                                                                                    let response = await axios.post(BASE_URL + 'api/cart/' + user_id + '/update/' + c.variant_id,
+                                                                                        {
+                                                                                            'quantity': newQty
+                                                                                        },
+                                                                                    )
+                                                                                    console.log(response.data)
+                                                                                    await getCart()
+                                                                                }
 
-                                                                        }} />
-                                                                        <input type="number" step="1" max="" value={c.quantity} name="quantity" className="quantity-field" />
-                                                                        <input type="button" value="+" className="button-plus" onClick={async () => {
-                                                                            let newQty = (c.quantity + 1)
+                                                                            }} />
+                                                                            <input type="number" step="1" max="" value={c.quantity} name="quantity" className="quantity-field"
+                                                                                style={{width:'40px'}}
+                                                                            />
+                                                                            <input type="button" value="+" className="button-plus" onClick={async () => {
+                                                                                let newQty = (c.quantity + 1)
 
-                                                                            if (c.quantity < c.variant.stock) {
-                                                                                let response = await axios.post(BASE_URL + 'api/cart/' + user_id + '/update/' + c.variant_id,
-                                                                                    {
-                                                                                        'quantity': newQty
-                                                                                    },
-                                                                                )
-                                                                                console.log(response.data)
-                                                                                await getCart()
-                                                                            }
+                                                                                if (c.quantity < c.variant.stock) {
+                                                                                    let response = await axios.post(BASE_URL + 'api/cart/' + user_id + '/update/' + c.variant_id,
+                                                                                        {
+                                                                                            'quantity': newQty
+                                                                                        },
+                                                                                    )
+                                                                                    console.log(response.data)
+                                                                                    await getCart()
+                                                                                }
 
-                                                                        }} />
-                                                                    </div>
-                                                                    <div>
-                                                                        <Button onClick={() => {deleteCartItem(c.variant.id)}}>
-                                                                            Delete
-                                                                        </Button>
-                                                                    </div>
+                                                                            }} />
+                                                                        </Col>
+                                                                        <Col>
+                                                                            
+                                                                            <Button variant='danger' onClick={() => { deleteCartItem(c.variant.id) }}
+                                                                                style={{height: '46px'}}
+                                                                            >
+                                                                                Remove
+                                                                            </Button>
+                                                                        </Col>
+                                                                    </Row>
+
                                                                 </Col>
 
                                                             </Row>
 
-                                                        
+
 
                                                         </div>
 
@@ -130,7 +151,9 @@ export default function Cart() {
 
 
                                                 <div className="custom-btn-group me-3 border-top pt-3 mt-3">
-                                                    <a className="btn btn-dark btn-outline-light"
+                                                    <h5 className='text-muted'>Total Cost: SGD{getTotalCost()}</h5>
+
+                                                    <a className="btn btn-dark btn-outline-light btn-block"
                                                         href={BASE_URL + "/checkout/" + user_id + '/checkout'}
                                                     >Checkout</a>
                                                 </div>

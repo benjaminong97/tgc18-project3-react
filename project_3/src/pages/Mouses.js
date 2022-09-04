@@ -4,7 +4,7 @@ import RangeSlider from 'react-bootstrap-range-slider';
 import { Link } from "react-router-dom";
 import axios from 'axios'
 
-const BASE_URL = 'https://3000-benjaminong-tgc18projec-m60k3wuifkz.ws-us63.gitpod.io/'
+const BASE_URL = 'https://superior-sensors.herokuapp.com/'
 
 export default function Mouses() {
     const [mouses, setMouses] = useState([])
@@ -85,6 +85,15 @@ export default function Mouses() {
     // }, [])
 
     
+    const getAverageRating = (reviews) => {
+        let reviewArray = reviews
+        let total = 0
+        for (let review of reviewArray) {
+            total += review['rating']
+        }
+        let averageRating = total/reviewArray.length
+        return averageRating
+    }
 
     const updateBrand = e => {
 
@@ -252,6 +261,7 @@ export default function Mouses() {
                                     <Accordion.Header>Maximum DPI</Accordion.Header>
                                     <Accordion.Body>
                                         <RangeSlider value={dpiSearch} min={0} max={32000} step={4000} onChange={e => setDpiSearch(e.target.value)} />
+                                        <p>{dpiSearch}</p>
                                     </Accordion.Body>
 
                                 </Accordion.Item>
@@ -269,33 +279,40 @@ export default function Mouses() {
 
                     {/* Listings */}
                     <div className="mb-5 col-12 col-md-9">
-                        <div className="pb-3 row row-cols-lg-3 g-3 g-md-4 container">
+                        <div className="pb-3 cols-md-1 row row-cols-lg-3 g-3 g-md-4 container-fluid">
                             {mouses.map((m) => (
                                 <div className='col' key={m.id}>
-                                    <Card bg='light' style={{ 'height': "470px" }}>
-                                        <div class="wrapper">
+                                    <Card bg='light' style={{ 'height': "580px"}}>
+                                        <div class="wrapper position-relative">
                                             <Link to={'/mouses/' + m.id} className="text-decoration-none text-reset">
                                                 <div className='img'>
                                                     <img src={m.variants[0].image_url} className='card-img-top rounded-0' alt='mouse image' style={{ 'height': '270px' }} />
                                                 </div>
-                                                <div className='d-flex row justify-content-between my-3 mx-1'>
-                                                    <div className='col-12 col-md-7'>
+                                                <div className='d-flex row justify-content-between my-3 mx-1' style={{height: '200px'}}>
+                                                    <div className='col-12 col-md-7' style={{height:'60px'}}>
                                                         <p className='product-title mb-2'>{m.name}</p>
                                                     </div>
                                                     <div className='col-12 col-md-5'>
                                                         <p className="product-title text-md-end text-start"><span>SG$ {(m.cost / 100).toFixed(2)}</span></p>
                                                     </div>
-                                                    <div>
+                                                    <div className='p-3 border-top' style={{height: '150px'}}>
+                                                        <p>Features:</p>
+                                                        <ul>
                                                         {
-                                                            m.features.map(f => (<Badge pill bg='success'>{f.name}</Badge>))
+                                                            m.features.map(f => (<li className='text-muted'>{f.name}</li>))
                                                         }
+                                                        </ul>
+                                                        
 
                                                     </div>
                                                     {/* add in some features here */}
                                                 </div>
-                                                <div class="product-price-btn m-3">
-
-                                                    <Button >buy now</Button>
+                                                <div className="p-3 border-top">
+                                                        <p className=''>Customer Rating: 
+                                                            <span className='text-muted'>{m.reviews?.length >= 1 ? ' ' + getAverageRating(m.reviews) + '/5' : ' No ratings for this product yet.'}
+                                                            </span>
+                                                        </p>
+                                                    
                                                 </div>
 
                                             </Link>

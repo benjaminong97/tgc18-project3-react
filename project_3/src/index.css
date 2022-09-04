@@ -7,18 +7,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   width:100%;
   height: 100%;
-  background-color: rgb(54, 54, 54);
+  background-color: rgb(231, 231, 231);
+  color:rgb(209, 209, 209)
 }
 
-html,body
-{
-    width: 100%;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-    overflow-x: hidden;
-    background-color: rgb(54, 54, 54); 
-}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
