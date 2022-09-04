@@ -109,15 +109,15 @@ export default function MouseDetails() {
     return (
         <React.Fragment>
             <div className="container">
-                <div className="page-header-2 pt-5 pb-4 my-2 mx-auto">
+                {/* <div className="page-header-2 pt-5 pb-4 my-2 mx-auto">
                     <nav aria-label="breadcrumb d-flex justify-content-center mb-2">
                         <ol class="breadcrumb b-crumb d-flex justify-content-center">
                             <li class="breadcrumb-item"><a href="/mouses">Mouses</a></li>
                             <li class="breadcrumb-item active" aria-current="page">{currentMouse.name}</li>
                         </ol>
                     </nav>
-                </div>
-                <Row>
+                </div> */}
+                <Row className='mt-4'>
                     <Col xs={12} lg={6}>
                         <Carousel autoFocus={true} emulateTouch={true}>
                             {currentMouse.variants?.length === 0 ?
