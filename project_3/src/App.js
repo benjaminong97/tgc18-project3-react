@@ -51,14 +51,14 @@ function App() {
     const logout = async () => {
         console.log('logging out')
         const response = await axios.post(BASE_URL + 'api/users/logout', {
-            'refreshToken' : localStorage.getItem('refreshToken')
+            'refreshToken': localStorage.getItem('refreshToken')
         })
 
         if (response.data) {
             localStorage.clear()
         }
-        
-       
+
+
         window.location.reload()
     }
 
@@ -73,41 +73,46 @@ function App() {
                 <Link to="/" className="navbar-brand mx-3">
                     <img src={require('./images/superior.png')} style={{ height: '4rem', margin: '0 0.25rem' }} alt="Brand Logo" />
                 </Link>
-
                 <ul className="navbar-nav me-auto">
-                    <li className="nav-item">
-                        <Link to="/mouses" className="nav-link active">Shop</Link>
-                    </li>
+                        <li className="nav-item">
+                            <Link to="/mouses" className="nav-link active">Shop</Link>
+                        </li>
 
-                </ul>
+                    </ul>
+
+                <Navbar.Toggle aria-controls="basic-navbar-nav" className='mx-2' />
+                <Navbar.Collapse id="basic-navbar-nav" className='justify-content-end'>
+                    
 
 
-                <div className='mx-3'>
-                    {loggedIn == true ?
-                        <React.Fragment>
-                            <Button className="text-dark btn-light">Welcome, {localStorage.getItem('user_first_name')}</Button>
+                    <div className='mx-3'>
+                        {loggedIn == true ?
+                            <React.Fragment>
+                                <Button className="text-dark btn-light">Welcome, {localStorage.getItem('user_first_name')}</Button>
 
-                        </React.Fragment> :
-                        <p></p>
-                    }
-                    {loggedIn == true ?
-                        <React.Fragment>
-                            <a href="/profile" role='button'><img src={require('./images/user.png')} style={{ height: '35px' }} className="mx-3" /></a>
+                            </React.Fragment> :
+                            <p></p>
+                        }
+                        {loggedIn == true ?
+                            <React.Fragment>
+                                <a href="/profile" role='button'><img src={require('./images/user.png')} style={{ height: '35px' }} className="mx-3" /></a>
 
-                        </React.Fragment>
-                        :
-                        <a href="/login" role='button'><img src={require('./images/user.png')} style={{ height: '35px' }} className="mx-3" /></a>
-                    }
-                    {loggedIn == true ?
-                        <React.Fragment>
+                            </React.Fragment>
+                            :
+                            <a href="/login" role='button'><img src={require('./images/user.png')} style={{ height: '35px' }} className="mx-3" /></a>
+                        }
+                        {loggedIn == true ?
+                            <React.Fragment>
+                                <a href='/cart' role='button'><img src={require('./images/shopping-cart.png')} style={{ height: '35px' }} /></a>
+                                <a role='button' onClick={logout} ><img src={require('./images/exit.png')} style={{ height: '35px' }} className='mx-3' /></a>
+                            </React.Fragment>
+                            :
                             <a href='/cart' role='button'><img src={require('./images/shopping-cart.png')} style={{ height: '35px' }} /></a>
-                            <a role='button' onClick={logout} ><img src={require('./images/exit.png')} style={{height: '35px'}} className='mx-3'/></a>
-                        </React.Fragment>
-                        :
-                        <a href='/cart' role='button'><img src={require('./images/shopping-cart.png')} style={{ height: '35px' }} /></a>
-                    }
+                        }
 
-                </div>
+                    </div>
+                </Navbar.Collapse>
+
 
 
                 {/* </Container> */}
