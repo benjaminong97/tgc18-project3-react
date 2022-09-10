@@ -1,6 +1,6 @@
 # **Gaming Mouse Online Store - Superior Sensors**
 
-Access the site for customers [here](https://superiorsensorsmain.netlify.app/)
+Access the site for customers [here](https://superiorsensorsmain.netlify.app/).
 - Login: gtan@gmail.com
 - Password: gtan123
 <br/>
