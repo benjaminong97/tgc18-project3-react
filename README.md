@@ -36,4 +36,9 @@ An online e-commerce store specialising in the sale of gaming mice.
 ### **5 Planes of UI/UX**
 ### 1. Strategy
 1. **Target Users**: As gaming becomes more and more popular, users getting into gaming will be looking for appropriate gear for their newfound gaming needs. In additon, current gamers looking for specific attributes for their gaming mice (such as gaming type or connectivity).
+2. **Users Needs**: To easily search and find gaming mice that provides the best performance for their gaming needs and budget. 
+3. **Site Objective**:
+- help users search for gaming mice based on their gaming needs
+- help users search for gaming mice based on their budget
+
 
