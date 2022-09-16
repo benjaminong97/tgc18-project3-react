@@ -5,6 +5,7 @@ Access the site for customers [here](https://superiorsensorsmain.netlify.app/).
 - Password: gtan123
 <br/>
 Access the site for shop owners (Admin) [here](https://superior-sensors.herokuapp.com/). 
+<br/>
 - Login: admin@superior.org
 - Password: admin123
 
