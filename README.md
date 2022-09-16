@@ -22,6 +22,7 @@ An online e-commerce store specialising in the sale of gaming mice.
 
 
 ### **Logical Schema Diagram**
+![This is an image](project_3/public/schema.png)
 
 <br/>
 
